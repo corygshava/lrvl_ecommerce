@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    public function index($value=''){
+        return view('user.home');
+    }
     public function send_to_dash() {
         $usertype = auth()->user()->usertype;
 
@@ -18,7 +21,7 @@ class HomeController extends Controller
         } else {
             // echo "welcome customer";
 
-            return view('dashboard');
+            return view('user.home');
         }
     }
 }
