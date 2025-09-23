@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
 
 Route::middleware([
     'auth:sanctum',
@@ -13,5 +14,10 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::get('/redirect',[HomeController::class,'send_to_dash']);
+Route::get('/redirect',[HomeController::class,'index']);
 Route::get('/',[HomeController::class,'index']);
+
+// admin actions
+Route::get('/product',[AdminController::class,'product']);
+
+Route::post('/add_product',[AdminController::class,'add_product']);

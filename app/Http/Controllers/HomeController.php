@@ -19,7 +19,4 @@ class HomeController extends Controller
             return view('user.home');
         }
     }
-    public function send_to_dash() {
-        $this->index();
-    }
 }

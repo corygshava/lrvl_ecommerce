@@ -19,11 +19,85 @@
 	<!-- endinject -->
 	<!-- Layout styles -->
 	<link rel="stylesheet" href="admin/assets/css/style.css">
+	<link rel="stylesheet" href="assets/css/coryG_base.css">
+	<link rel="stylesheet" href="assets/css/w3.css">
 	<!-- End layout styles -->
 	<link rel="shortcut icon" href="admin/assets/images/favicon.png" />
+
+	<script src="assets/js/SuperScript.js"></script>
+	<script src="assets/js/toappend.js"></script>
+	<script src="assets/js/customalerter.js"></script>
+
+	<style>
+		/* critical styles */
+		.main-panel{
+			height: calc(100vh - 0px);
+			overflow-x: hidden;
+			overflow-y: auto;
+		}
+
+		textarea.form-control{
+			min-height: 120px;
+		}
+		.form-control:focus{
+			color: #fff;
+		}
+	</style>
+
+	<style>
+		/* Custom scrollbar style */
+		/* WebKit browsers (Chrome, Safari, Edge) */
+		::-webkit-scrollbar {
+			width: 8px; /* Scrollbar width */
+			height: 10px; /* Horizontal scrollbar height */
+		}
+
+		::-webkit-scrollbar-track {
+			background: #414260; /* Transparent track so content is visible */
+		}
+
+		::-webkit-scrollbar-thumb {
+			background-color: rgba(0, 0, 0, 0.5); /* Scrollbar thumb color */
+			border-radius: 4px; /* Rounded thumb */
+		}
+
+		::-webkit-scrollbar-thumb:hover {
+			background-color: rgba(0, 0, 0, 0.7); /* Color on hover */
+		}
+	</style>
 </head>
 <body>
-	{{ $slot}}
+	<div class="container-scroller">
+			<div class="row p-0 m-0" id="proBanner">
+				<div class="col-md-12 p-0 m-0">
+					<div class="card-body card-body-padding d-flex align-items-center justify-content-between">
+						<div class="ps-lg-1">
+							<div class="d-flex align-items-center justify-content-between">
+								<p class="mb-0 font-weight-medium me-3 buy-now-text">Welcome to your Dashboard!</p>
+								<a href="https://www.bootstrapdash.com/product/corona-free/?utm_source=organic&utm_medium=banner&utm_campaign=buynow_demo" target="_blank" class="btn me-2 buy-now-btn border-0">Get Pro</a>
+							</div>
+						</div>
+						<div class="d-flex align-items-center justify-content-between">
+							<a href="https://www.bootstrapdash.com/product/corona-free/"><i class="mdi mdi-home me-3 text-white"></i></a>
+							<button id="bannerClose" class="btn border-0 p-0">
+								<i class="mdi mdi-close text-white me-0"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- partial:partials/_sidebar.html -->
+			@include('admin.sidebar')
+
+			<!-- partial -->
+			<div class="container-fluid page-body-wrapper">
+				<!-- partial:partials/_navbar.html -->
+				@include('admin.navbar')
+
+				{{ $slot}}
+			</div>
+		</div>
 
 	<!-- scripts -->
 		<!-- container-scroller -->
