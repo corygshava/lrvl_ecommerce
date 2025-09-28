@@ -1,14 +1,17 @@
 <x-admindash>
 	<x-slot>
 		<div class="main-panel">
-			<div class="toparea text-center spacy-md">
+			<div class="toparea text-left spacy-md w3-display-container">
+				<div class="w3-display-topright spacy-md">
+					<a class="btn btn-primary" href="./admin_list_products"><i class="mdi mdi-format-list-bulleted"></i> view products</a>
+				</div>
 				<h1>Products management</h1>
+				<p>Add new products</p>
 			</div>
 
 			<div class="spacy-md">
 				<div class="card">
 					<div class="card-body">
-						<h4 class="card-title">Add new product</h4>
 						<p class="card-description">Add the details to register a product</p>
 						{{-- error handling --}}
 							

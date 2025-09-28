@@ -1,6 +1,6 @@
 <div class="latest-products">
 	<div class="container">
-		<div class="row">
+		<div class="row products">
 			<div class="col-md-12">
 				<div class="section-heading">
 					<h2>Latest Products</h2>
@@ -25,7 +25,8 @@
 						<a href="#"><img src="{{$imgpath}}" alt=""></a>
 						<div class="down-content">
 							<a href="#"><h4>{{ $title }}</h4></a>
-							<h6>Ksh. {{$price_format}}</h6>
+							{{-- <span class="w3-display-topright text-sm">Ksh. {{$price_format}}</span> --}}
+							<h6><b>Ksh. {{$price_format}}</b></h6>
 							<p>{{$desc_short}}</p>
 
 							<div class="w3-hide">
@@ -43,9 +44,9 @@
 				</div>
 			@endforeach
 
-		</div>
-		<div class="w3-container">
-			{!! $prods->links() !!}
+			<div class="col-md-12">
+				{{ $prods->links('vendor.pagination.custom') }}
+			</div>
 		</div>
 	</div>
 </div>

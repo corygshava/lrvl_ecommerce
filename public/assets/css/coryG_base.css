@@ -156,7 +156,7 @@ html{
 	.distance-lg{margin-top: var(--size-lg) !important;margin-bottom: var(--size-lg) !important;}
 	.distance-mg{margin-top: var(--size-mg) !important;margin-bottom: var(--size-mg) !important;}
 	
-	.btn-group {
+	.btn-group:not(.bs) {
 		display: inline-flex !important;
 		gap: 1rem;
 		flex-wrap: wrap;

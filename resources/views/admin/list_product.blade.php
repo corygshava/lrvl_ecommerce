@@ -1,7 +1,10 @@
 <x-admindash>
 	<x-slot>
 		<div class="main-panel">
-			<div class="toparea text-center spacy-md">
+			<div class="toparea text-left spacy-md w3-display-container">
+				<div class="w3-display-topright spacy-md">
+					<a class="btn btn-primary" href="./admin_new_product"><i class="mdi mdi-plus"></i> add product</a>
+				</div>
 				<h1>Products management</h1>
 				<p>all available products</p>
 			</div>
@@ -27,7 +30,7 @@
 						</tr>
 					@else
 						<?php
-							$no = 0;
+							$no = 0 + (($data->currentPage() - 1) * $amts);
 						?>
 						@foreach ($data as $prod)
 							<?php
@@ -55,7 +58,7 @@
 										<button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuOutlineButton2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Actions</button>
 										<div class="dropdown-menu" aria-labelledby="dropdownMenuOutlineButton2" style="">
 											<a class="dropdown-item w3-hover-blue" href="#">View</a>
-											<a class="dropdown-item w3-hover-blue" href="#">Edit</a>
+											<a class="dropdown-item w3-hover-blue" href="{{url('admin_edit_product',$prod->id)}}">Edit</a>
 											<form action="{{url('delete_product',$prod->id)}}" method="POST">
 												@csrf
 												<button class="dropdown-item w3-hover-red">Delete</button>
@@ -69,7 +72,10 @@
 					</tbody>
 				</table>
 				<div class="spacy-md">
-					{{ $data->links() }}
+					{{ $data->links('vendor.pagination.admin') }}
+				</div>
+				<div class="spacy-sm">
+					<p>Currently on page <b class="text-primary">{{ $data->currentPage() }}</b> of <b>{{ $data->lastPage() }}</b></p>
 				</div>
 			</div>
 		</div>

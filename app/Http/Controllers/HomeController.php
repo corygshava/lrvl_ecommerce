@@ -14,15 +14,20 @@ class HomeController extends Controller
             $usertype = auth()->user()->usertype;
 
             if($usertype == '1'){
-                $thapage = 'admin.home';
-                return view($thapage);
+                // $thapage = 'admin.home';
+                // return view($thapage);
             }
         }
-
+        
         // $prod_data = Product::all();
-        $prod_data = Product::paginate(4);
+        $prod_data = Product::paginate(3);
         $sendover = ['prods' => $prod_data];
-
+        
         return view($thapage,$sendover);
+    }
+    
+    public function admin(){
+        $thapage = 'admin.home';
+        return view($thapage);
     }
 }
