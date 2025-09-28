@@ -16,7 +16,7 @@ class AdminController extends Controller
             'prod_title' => ['required'],
             'prod_price' => ['required'],
             'prod_desc' => ['required'],
-            'prod_amt' => ['required','min:1']
+            'prod_amt' => ['required','min:0']
         ]);
 
         $san_prod_title = strip_tags($indata['prod_title']);
@@ -45,5 +45,20 @@ class AdminController extends Controller
         Product::create($outdata);
 
         return redirect()->back()->with('message','Product added successfully');
+    }
+
+    public function list_products() {
+        $prods = Product::paginate(15);
+        $passeddata = ['data' => $prods];
+
+        return view('admin.list_product', $passeddata);
+    }
+
+    public function delete_product($id) {
+        $data = Product::find($id);
+        // TODO: make it that this just changes its publish status to 0 insstead of nukin it
+        // $data->delete();
+
+        return redirect()->back()->with('message','Item deleted successfully');
     }
 }

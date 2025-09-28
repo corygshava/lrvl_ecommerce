@@ -76,9 +76,8 @@
 			</a>
 			<div class="collapse" id="ui-basic">
 				<ul class="nav flex-column sub-menu">
-					<li class="nav-item"> <a class="nav-link" href="{{url('product')}}">add new product</a></li>
-					<li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">view products</a></li>
-					<li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+					<li class="nav-item"> <a class="nav-link" href="{{url('admin_new_product')}}">add new product</a></li>
+					<li class="nav-item"> <a class="nav-link" href="{{url('admin_list_products')}}">view products</a></li>
 				</ul>
 			</div>
 		</li>

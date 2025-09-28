@@ -18,6 +18,8 @@ Route::get('/redirect',[HomeController::class,'index']);
 Route::get('/',[HomeController::class,'index']);
 
 // admin actions
-Route::get('/product',[AdminController::class,'product']);
+Route::get('/admin_new_product',[AdminController::class,'product']);
+Route::get('/admin_list_products',[AdminController::class,'list_products']);
 
 Route::post('/add_product',[AdminController::class,'add_product']);
+Route::post('/delete_product/{id}',[AdminController::class,'delete_product']);

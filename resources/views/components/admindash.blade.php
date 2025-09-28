@@ -4,7 +4,7 @@
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Corona Admin</title>
+	<title>myAdmin - HouseOfJrm</title>
 	<!-- plugins:css -->
 	<link rel="stylesheet" href="admin/assets/vendors/mdi/css/materialdesignicons.min.css">
 	<link rel="stylesheet" href="admin/assets/vendors/css/vendor.bundle.base.css">
@@ -27,6 +27,7 @@
 	<script src="assets/js/SuperScript.js"></script>
 	<script src="assets/js/toappend.js"></script>
 	<script src="assets/js/customalerter.js"></script>
+	<script src="assets/js/app.js"></script>
 
 	<style>
 		/* critical styles */
@@ -41,6 +42,24 @@
 		}
 		.form-control:focus{
 			color: #fff;
+		}
+
+		.table.table-hover tr img {
+			aspect-ratio: 1;
+			height: 30px;
+			object-fit: cover;
+			border-radius: 0 !important;
+		}
+		.table.table-hover tr:hover th{
+			color: var(--text) !important;
+		}
+		.table.table-hover tr:hover td{
+			color: #fff;
+		}
+
+		/* pagination fixes */
+		.page-item{
+			background-color: transparent !important;
 		}
 	</style>
 
@@ -123,5 +142,11 @@
 		<script src="admin/assets/js/dashboard.js"></script>
 		<!-- End custom js for this page -->
 	<!-- End scripts -->
+
+	{{-- critical JS --}}
+
+	@if (session()->has('message'))
+		<script>alert_success(`{{ session()->get('message')}}`)</script>
+	@endif
 </body>
 </html>

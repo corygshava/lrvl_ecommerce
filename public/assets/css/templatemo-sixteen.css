@@ -963,10 +963,12 @@ footer .inner-content p a {
 	.product-item .down-content h4 {
 		margin-bottom: 20px!important;
 	}
-	.product-item .down-content h6 {
+	.product-item .down-content h6,.product-item .down-content .price {
 		position: absolute!important;
 		top: 30px!important;
 		right: 30px!important;
+		padding: var(--size-sm);
+		display: inline-block;
 	}
 	.product-item .down-content span {
 		position: absolute!important;
