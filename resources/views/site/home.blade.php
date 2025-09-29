@@ -1,4 +1,4 @@
-<x-siteparts.layout>
+<x-siteparts.layout :mycarts="$c_data">
     <x-slot:pagetitle>Home</x-slot:pagetitle>
     <x-slot:maurl>home</x-slot:maurl>
     <x-slot>

@@ -35,7 +35,7 @@
                     <div class="cart-item w3-center">
                         <i>no items in cart</i><br>
                         <div class="spacy-sm">
-                            <a class="btn btn-primary" href="./products"><i class="fa fa-plus"></i> add item</a>
+                            <a class="btn btn-primary" href="./products#products"><i class="fa fa-plus"></i> add item</a>
                         </div>
                     </div>
                 @else
@@ -67,7 +67,7 @@
                             
                             <form action="./remove_from_cart" method="post" data-role="remove_item_{{$id}}">
                                 @csrf
-                                <input type="hidden" name="prodid" value="{{ $myid }}">
+                                <input type="hidden" name="recid" value="{{ $myid }}">
                                 <i class="fa fa-times remove-item" aria-hidden="true" data-submitme='[data-role="remove_item_{{$id}}"]'></i>
                             </form>
                         </div>
@@ -101,17 +101,24 @@
                         <span class="total-amount">{{ $showsum }}</span>
                     </div>
                 </div>
-                <hr>
-                <div class="row">
-                    <div class="col-md-12 text-right">
-                        <button class="btn btn-custom btn-clear mr-2">
-                            <i class="fa fa-trash"></i> Clear Cart
-                        </button>
-                        <button class="btn btn-custom btn-checkout">
-                            <i class="fa fa-credit-card"></i> Checkout
-                        </button>
+                @if (count($m_cart) != 0)
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                            <form class="w3-hide" action="./clearcart" method="post" data-role="clearcart">
+                                @csrf
+                                <input type="hidden" name="doit" value="yes">
+                            </form>
+
+                            <button class="btn btn-custom btn-clear mr-2" data-submitme='[data-role="clearcart"]'>
+                                <i class="fa fa-trash"></i> Clear Cart
+                            </button>
+                            <button class="btn btn-custom btn-checkout">
+                                <i class="fa fa-credit-card"></i> Checkout
+                            </button>
+                        </div>
                     </div>
-                </div>
+                @endif
             </div>
         </div>
     </x-slot>

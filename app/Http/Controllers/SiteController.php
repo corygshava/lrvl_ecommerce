@@ -10,7 +10,7 @@ use App\Http\Controllers\AdminController;
 // used to be HomeController
 class SiteController extends Controller{
 	public static function get_user_data(){
-		$cartscount = 0;
+		$cartscount = [];
 
 		if(auth()->check()){
 			$uid = auth()->user()->id;
@@ -73,6 +73,9 @@ class SiteController extends Controller{
 	}
 
 	public function showcart(){
+		if(!auth()->check()){
+			return redirect('./')->withErrors('log in to access your cart');
+		}
 		$udata = self::get_user_data();
 		$cartcount = count($udata['carts']);
 		$cartdata = $udata['carts'];
@@ -113,9 +116,9 @@ class SiteController extends Controller{
 
 				$cart->save();
 
-				return redirect()->back()->with('message','added to cart successfully');
+				return redirect('./products#products')->with('message','added to cart successfully');
 			} else {
-				return redirect()->back()->withErrors('define a valid product first');
+				return redirect('./products#products')->withErrors('define a valid product first');
 			}
 		} else {
 			return redirect('./login');
@@ -125,13 +128,12 @@ class SiteController extends Controller{
 	public function remove_from_cart(Request $req){
 		if(auth()->check()){
 			$data = $req->validate([
-				'prodid' => ['required']
+				'recid' => ['required','min:0']
 			]);
 
-			$san_prodid = intval($req->prodid);
+			$san_prodid = intval($req->recid);
 
 			$user = auth()->user();
-			$product = Product::find($san_prodid);
 
 			$cart = Cart::find($san_prodid);
 
@@ -140,6 +142,18 @@ class SiteController extends Controller{
 			}
 
 			return redirect()->back()->with('message','removed from cart successfully');
+		} else {
+			return redirect('./login');
+		}
+	}
+
+	public function clear_cart(Request $req){
+		if(auth()->check()){
+			$uid = auth()->user()->id;
+
+			$cart = Cart::where('userid',$uid)->delete();
+
+			return redirect()->back()->with('message','cart cleared successfully');
 		} else {
 			return redirect('./login');
 		}

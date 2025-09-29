@@ -25,6 +25,7 @@ Route::get('/site_admin',[SiteController::class,'admin']);
 
 Route::post('/add_to_cart/{id}',[SiteController::class,'add_to_cart']);
 Route::post('/remove_from_cart',[SiteController::class,'remove_from_cart']);
+Route::post('/clearcart',[SiteController::class,'clear_cart']);
 
 // admin actions
 Route::get('/admin_new_product',[AdminController::class,'product']);
