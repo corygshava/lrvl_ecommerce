@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping Cart – Bootstrap 4 / Font Awesome 4</title>
+
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Font Awesome 4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        :root{
+            --theme-red:#dc3545;
+        }
+        .bg-theme{background-color: var(--theme-red) !important;}
+        .text-theme{color: var(--theme-red) !important;}
+        .btn-theme{
+            background-color: var(--theme-red);
+            border-color: var(--theme-red);
+            color:#fff;
+        }
+        .btn-theme:hover{
+            background-color: #c82333;
+            border-color: #bd2130;
+            color:#fff;
+        }
+        .cart-item{
+            border-bottom:1px solid #e3e3e3;
+            padding:1rem 0;
+        }
+        .cart-item:last-child{border:none;}
+    </style>
+</head>
+<body class="bg-light">
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow-sm">
+                <div class="card-header bg-theme text-white">
+                    <h4 class="mb-0"><i class="fa fa-shopping-cart"></i> Your Cart</h4>
+                    <p class="mb-0 small">User: <strong>John Doe</strong> (ID: 1007)</p>
+                </div>
+
+                <div class="card-body p-0">
+                    <!-- Cart items -->
+                    <div id="cartItems" class="px-3">
+                        <!-- Item 1 -->
+                        <div class="cart-item d-flex align-items-center" data-price="19.99">
+                            <div class="flex-grow-1">
+                                <div class="font-weight-bold">Wireless Mouse</div>
+                                <small class="text-muted">Qty: 2 × $19.99</small>
+                            </div>
+                            <div class="text-right mx-3">
+                                <div class="font-weight-bold text-theme item-total">$39.98</div>
+                            </div>
+                            <button class="close text-danger" aria-label="Remove">
+                                <span aria-hidden="true"><i class="fa fa-times"></i></span>
+                            </button>
+                        </div>
+
+                        <!-- Item 2 -->
+                        <div class="cart-item d-flex align-items-center" data-price="49.99">
+                            <div class="flex-grow-1">
+                                <div class="font-weight-bold">Mechanical Keyboard</div>
+                                <small class="text-muted">Qty: 1 × $49.99</small>
+                            </div>
+                            <div class="text-right mx-3">
+                                <div class="font-weight-bold text-theme item-total">$49.99</div>
+                            </div>
+                            <button class="close text-danger" aria-label="Remove">
+                                <span aria-hidden="true"><i class="fa fa-times"></i></span>
+                            </button>
+                        </div>
+
+                        <!-- Item 3 -->
+                        <div class="cart-item d-flex align-items-center" data-price="9.99">
+                            <div class="flex-grow-1">
+                                <div class="font-weight-bold">USB-C Cable</div>
+                                <small class="text-muted">Qty: 3 × $9.99</small>
+                            </div>
+                            <div class="text-right mx-3">
+                                <div class="font-weight-bold text-theme item-total">$29.97</div>
+                            </div>
+                            <button class="close text-danger" aria-label="Remove">
+                                <span aria-hidden="true"><i class="fa fa-times"></i></span>
+                            </button>
+                        </div>
+
+                        <!-- Item 4 -->
+                        <div class="cart-item d-flex align-items-center" data-price="129.99">
+                            <div class="flex-grow-1">
+                                <div class="font-weight-bold">27" Monitor</div>
+                                <small class="text-muted">Qty: 1 × $129.99</small>
+                            </div>
+                            <div class="text-right mx-3">
+                                <div class="font-weight-bold text-theme item-total">$129.99</div>
+                            </div>
+                            <button class="close text-danger" aria-label="Remove">
+                                <span aria-hidden="true"><i class="fa fa-times"></i></span>
+                            </button>
+                        </div>
+
+                        <!-- Item 5 -->
+                        <div class="cart-item d-flex align-items-center" data-price="39.99">
+                            <div class="flex-grow-1">
+                                <div class="font-weight-bold">Laptop Stand</div>
+                                <small class="text-muted">Qty: 1 × $39.99</small>
+                            </div>
+                            <div class="text-right mx-3">
+                                <div class="font-weight-bold text-theme item-total">$39.99</div>
+                            </div>
+                            <button class="close text-danger" aria-label="Remove">
+                                <span aria-hidden="true"><i class="fa fa-times"></i></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Total & Actions -->
+                    <div class="bg-light p-3 border-top">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="mb-0">Total:</h5>
+                            <h4 class="mb-0 font-weight-bold text-theme" id="cartTotal">$289.92</h4>
+                        </div>
+
+                        <div class="d-flex justify-content-end">
+                            <button id="clearCart" class="btn btn-outline-secondary mr-2">
+                                <i class="fa fa-trash-o"></i> Clear Cart
+                            </button>
+                            <button id="checkout" class="btn btn-theme">
+                                <i class="fa fa-credit-card"></i> Checkout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap 4 JS + dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+/* Simple interactive helpers */
+$(function(){
+    // Remove single item
+    $('#cartItems').on('click','.close',function(){
+        $(this).closest('.cart-item').fadeOut(250,function(){
+            $(this).remove();
+            recalcTotal();
+        });
+    });
+
+    // Clear entire cart
+    $('#clearCart').on('click',function(){
+        $('#cartItems').fadeOut(250,function(){
+            $(this).empty();
+            recalcTotal();
+        });
+    });
+
+    // Recalculate total
+    function recalcTotal(){
+        let total=0;
+        $('#cartItems .cart-item').each(function(){
+            const price=parseFloat($(this).attr('data-price'));
+            const qty=parseInt($(this).find('small').text().match(/Qty:\s*(\d+)/)[1]);
+            total+=price*qty;
+        });
+        $('#cartTotal').text('$'+total.toFixed(2));
+    }
+});
+</script>
+
+</body>
+</html>

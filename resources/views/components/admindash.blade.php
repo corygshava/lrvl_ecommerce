@@ -33,6 +33,9 @@
 	<script src="assets/js/app.js"></script>
 
 	<style>
+		a{
+			text-decoration: none;
+		}
 		/* critical styles */
 		.main-panel{
 			height: calc(100vh - 0px);

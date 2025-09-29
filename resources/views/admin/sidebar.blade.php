@@ -1,7 +1,7 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
 	<div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-		<a class="sidebar-brand brand-logo" href="./site_admin"><img src="./adm_ass/assets/images/logo.svg" alt="logo" /></a>
-		<a class="sidebar-brand brand-logo-mini" href="./site_admin"><img src="./adm_ass/assets/images/logo-mini.svg" alt="logo" /></a>
+		<a class="w3-text-white sidebar-brand brand-logo" href="./site_admin">myAdmin</a>
+		<a class="w3-text-white sidebar-brand brand-logo-mini" href="./site_admin">myAdmin</a>
 	</div>
 	<ul class="nav">
 		<li class="nav-item profile w3-hide">

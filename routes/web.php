@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SiteController;
 use App\Http\Controllers\AdminController;
 
 Route::middleware([
@@ -14,10 +14,17 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::get('/redirect',[HomeController::class,'index']);
-Route::get('/',[HomeController::class,'index']);
+// site navigation
+Route::get('/',[SiteController::class,'index']);
+Route::get('/redirect',[SiteController::class,'index']);
+Route::get('/products',[SiteController::class,'products']);
+Route::post('/search',[SiteController::class,'search']);
+Route::get('/search',[SiteController::class,'search']);
+Route::get('/mycart',[SiteController::class,'showcart']);
+Route::get('/site_admin',[SiteController::class,'admin']);
 
-Route::get('/site_admin',[HomeController::class,'admin']);
+Route::post('/add_to_cart/{id}',[SiteController::class,'add_to_cart']);
+Route::post('/remove_from_cart',[SiteController::class,'remove_from_cart']);
 
 // admin actions
 Route::get('/admin_new_product',[AdminController::class,'product']);

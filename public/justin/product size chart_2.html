@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ladies Size Chart with Finder</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<style>
+		body { background-color: #f8f9fa; }
+		.size-chart { margin-top: 30px; }
+		.table th, .table td { text-align: center; vertical-align: middle; }
+		h2 { margin-bottom: 20px; font-weight: 600; }
+		.highlight-green { background-color: #d4edda !important; }
+		.highlight-red { background-color: #f8d7da !important; }
+	</style>
+</head>
+<body>
+
+<div class="container size-chart">
+	<div class="text-center">
+		<h2>Ladies Size Chart</h2>
+		<p class="text-muted">Measurements are in centimeters (cm)</p>
+	</div>
+
+	<!-- User input form -->
+	<div class="row mb-4">
+		<div class="col-md-3">
+			<input type="number" id="inputBust" class="form-control" placeholder="Chest (cm)">
+		</div>
+		<div class="col-md-3">
+			<input type="number" id="inputWaist" class="form-control" placeholder="Waist (cm)">
+		</div>
+		<div class="col-md-3">
+			<input type="number" id="inputHips" class="form-control" placeholder="Hips (cm)">
+		</div>
+		<div class="col-md-3">
+			<button class="btn btn-primary btn-block" onclick="findSize()">Find My Size</button>
+		</div>
+	</div>
+
+	<!-- Size Chart -->
+	<div class="table-responsive">
+		<table id="sizeTable" class="table table-bordered table-striped table-hover">
+			<thead class="thead-dark">
+				<tr>
+					<th>Size</th>
+					<th>US</th>
+					<th>UK</th>
+					<th>Bust</th>
+					<th>Waist</th>
+					<th>Hips</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-size="XS" data-bust="78-82" data-waist="60-64" data-hips="84-88">
+					<td>XS</td><td>2</td><td>6</td><td>78 - 82</td><td>60 - 64</td><td>84 - 88</td>
+				</tr>
+				<tr data-size="S" data-bust="83-86" data-waist="65-68" data-hips="89-92">
+					<td>S</td><td>4</td><td>8</td><td>83 - 86</td><td>65 - 68</td><td>89 - 92</td>
+				</tr>
+				<tr data-size="M" data-bust="87-90" data-waist="69-72" data-hips="93-96">
+					<td>M</td><td>6</td><td>10</td><td>87 - 90</td><td>69 - 72</td><td>93 - 96</td>
+				</tr>
+				<tr data-size="L" data-bust="91-96" data-waist="73-78" data-hips="97-102">
+					<td>L</td><td>8</td><td>12</td><td>91 - 96</td><td>73 - 78</td><td>97 - 102</td>
+				</tr>
+				<tr data-size="XL" data-bust="97-102" data-waist="79-84" data-hips="103-108">
+					<td>XL</td><td>10</td><td>14</td><td>97 - 102</td><td>79 - 84</td><td>103 - 108</td>
+				</tr>
+				<tr data-size="XXL" data-bust="103-108" data-waist="85-90" data-hips="109-114">
+					<td>XXL</td><td>12</td><td>16</td><td>103 - 108</td><td>85 - 90</td><td>109 - 114</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<script>
+	function parseRange(range) {
+		const [min, max] = range.split('-').map(v => parseInt(v.trim()));
+		return {min, max};
+	}
+
+	function findSize() {
+		// Get user input
+		const bust = parseInt(document.getElementById('inputBust').value);
+		const waist = parseInt(document.getElementById('inputWaist').value);
+		const hips = parseInt(document.getElementById('inputHips').value);
+
+		// Clear previous highlights
+		document.querySelectorAll("#sizeTable tbody tr").forEach(row => {
+			row.classList.remove("highlight-green", "highlight-red");
+		});
+
+		let found = false;
+
+		// Loop through rows
+		document.querySelectorAll("#sizeTable tbody tr").forEach(row => {
+			const bustRange = parseRange(row.dataset.bust);
+			const waistRange = parseRange(row.dataset.waist);
+			const hipsRange = parseRange(row.dataset.hips);
+
+			if (
+				bust >= bustRange.min && bust <= bustRange.max &&
+				waist >= waistRange.min && waist <= waistRange.max &&
+				hips >= hipsRange.min && hips <= hipsRange.max
+			) {
+				row.classList.add("highlight-green");
+				found = true;
+			}
+		});
+
+		// If no size found
+		if (!found) {
+			document.querySelectorAll("#sizeTable tbody tr").forEach(row => {
+				row.classList.add("highlight-red");
+			});
+		}
+	}
+</script>
+
+</body>
+</html>

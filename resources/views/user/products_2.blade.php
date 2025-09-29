@@ -4,7 +4,7 @@
 			<div class="col-md-12">
 				<div class="section-heading">
 					<h2>Latest Products</h2>
-					<a href="products.html">view all products <i class="fa fa-angle-right"></i></a>
+					<a href="./products#products">view all products <i class="fa fa-angle-right"></i></a>
 				</div>
 			</div>
 
@@ -20,14 +20,14 @@
 					$desc = $prod['description'];
 					$desc_short = $desc;
 				?>
-				<div class="col-md-4">
-					<div class="product-item">
-						<a href="#"><img src="{{$imgpath}}" alt=""></a>
+				<div class="col-md-3">
+					<a class="product-item" href="./products#products">
+						<img src="{{$imgpath}}" alt="">
 						<div class="down-content">
-							<a href="#"><h4>{{ $title }}</h4></a>
+							<h4>{{ $title }}</h4>
 							{{-- <span class="w3-display-topright text-sm">Ksh. {{$price_format}}</span> --}}
-							<h6><b>Ksh. {{$price_format}}</b></h6>
-							<p>{{$desc_short}}</p>
+							<h4><b>Ksh. {{$price_format}}</b></h4>
+							<p class="thedesc">{{$desc_short}}</p>
 
 							<div class="w3-hide">
 								<ul class="stars">
@@ -40,12 +40,12 @@
 								<span>Reviews (24)</span>
 							</div>
 						</div>
-					</div>
+					</a>
 				</div>
 			@endforeach
 
 			<div class="col-md-12">
-				{{ $prods->links('vendor.pagination.custom') }}
+				{{-- {{ $prods->links('vendor.pagination.custom') }} --}}
 			</div>
 		</div>
 	</div>

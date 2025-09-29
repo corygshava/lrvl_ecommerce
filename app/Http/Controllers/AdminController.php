@@ -10,8 +10,12 @@ class AdminController extends Controller
 	public static $product_img_upload_path = 'uploads/products/';
 
 	public static function isadmin(): bool{
-		$utype = auth()->user()->usertype;
-		$dec = $utype == 1;
+		if(auth()->check()){
+			$utype = auth()->user()->usertype;
+			$dec = $utype == 1;
+		} else {
+			$dec = false;
+		}
 
 		if(!$dec){
 			echo <<<HTML

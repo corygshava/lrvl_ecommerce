@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ladies Size Chart with JS</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body { background-color: #f8f9fa; }
+    .size-chart { margin-top: 30px; }
+    .table th, .table td { text-align: center; vertical-align: middle; }
+    .highlight-green { background-color: #d4edda !important; } /* green */
+    .highlight-red { background-color: #f8d7da !important; }   /* red */
+  </style>
+</head>
+<body>
+
+<div class="container size-chart">
+  <h2 class="text-center mb-4">Ladies Size Chart</h2>
+  <div class="table-responsive">
+    <table id="sizeChartTable" class="table table-bordered table-striped table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th>Size</th>
+          <th>US</th>
+          <th>UK</th>
+          <th>Bust</th>
+          <th>Waist</th>
+          <th>Hips</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-size="xs">
+          <td>XS</td><td>2</td><td>6</td><td data-bust="78-82">78 - 82</td><td data-waist="60-64">60 - 64</td><td data-hips="84-88">84 - 88</td>
+        </tr>
+        <tr data-size="s">
+          <td>S</td><td>4</td><td>8</td><td data-bust="83-86">83 - 86</td><td data-waist="65-68">65 - 68</td><td data-hips="89-92">89 - 92</td>
+        </tr>
+        <tr data-size="m">
+          <td>M</td><td>6</td><td>10</td><td data-bust="87-90">87 - 90</td><td data-waist="69-72">69 - 72</td><td data-hips="93-96">93 - 96</td>
+        </tr>
+        <tr data-size="l">
+          <td>L</td><td>8</td><td>12</td><td data-bust="91-96">91 - 96</td><td data-waist="73-78">73 - 78</td><td data-hips="97-102">97 - 102</td>
+        </tr>
+        <tr data-size="xl">
+          <td>XL</td><td>10</td><td>14</td><td data-bust="97-102">97 - 102</td><td data-waist="79-84">79 - 84</td><td data-hips="103-108">103 - 108</td>
+        </tr>
+        <tr data-size="xxl">
+          <td>XXL</td><td>12</td><td>16</td><td data-bust="103-108">103 - 108</td><td data-waist="85-90">85 - 90</td><td data-hips="109-114">109 - 114</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+function highlightSize(chestm, waistm, hipsm, availableSizes) {
+  // clear previous highlights
+  document.querySelectorAll("#sizeChartTable tbody tr").forEach(row => {
+    row.classList.remove("highlight-green", "highlight-red");
+  });
+
+  let matched = false;
+
+  document.querySelectorAll("#sizeChartTable tbody tr").forEach(row => {
+    let sizeKey = row.getAttribute("data-size").toLowerCase();
+
+    // get ranges
+    let bustRange = row.querySelector("[data-bust]").getAttribute("data-bust").split("-").map(Number);
+    let waistRange = row.querySelector("[data-waist]").getAttribute("data-waist").split("-").map(Number);
+    let hipsRange = row.querySelector("[data-hips]").getAttribute("data-hips").split("-").map(Number);
+
+    // check if measurements fit this row
+    let fits = (
+      chestm >= bustRange[0] && chestm <= bustRange[1] &&
+      waistm >= waistRange[0] && waistm <= waistRange[1] &&
+      hipsm >= hipsRange[0] && hipsm <= hipsRange[1]
+    );
+
+    if (fits) {
+      matched = true;
+      if (availableSizes.map(s => s.toLowerCase()).includes(sizeKey)) {
+        row.classList.add("highlight-green");
+      } else {
+        row.classList.add("highlight-red");
+      }
+    }
+  });
+
+  if (!matched) {
+    console.log("No matching size found for given measurements.");
+  }
+}
+
+// Example test (will highlight M green if 'm' is in availableSizes)
+highlightSize(90, 72, 95, ['s','m','l']);
+</script>
+
+</body>
+</html>
