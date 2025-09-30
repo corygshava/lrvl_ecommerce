@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Controllers\cmutils;
 use App\Http\Controllers\AdminController;
 
 // used to be HomeController
@@ -43,6 +45,15 @@ class SiteController extends Controller{
 		return view($thapage,$sendover);
 	}
 
+	public function admin(){
+		if(AdminController::isadmin()){
+			$adm = new AdminController();
+			return redirect('./site_admin');
+		} else {
+			return redirect('./');
+		}
+	}
+
 	public function products(){
 		$udata = self::get_user_data();
 		$cartcount = count($udata['carts']);
@@ -50,7 +61,7 @@ class SiteController extends Controller{
 		$pagecount = 8;
 		$thapage = 'site.products';
 
-		$prod_data = Product::where('publish',1)->orderBy('created_at', 'desc')->paginate($pagecount);
+		$prod_data = Product::where('publish',1)->where('quantity','>',0)->orderBy('created_at', 'desc')->paginate($pagecount);
 		$sendover = ['prods' => $prod_data,'pageamt' => $pagecount, 'c_data' => $cartcount];
 		
 		return view($thapage,$sendover);
@@ -88,7 +99,7 @@ class SiteController extends Controller{
 
 		$thapage = 'site.mycart';
 		$sendover = ['cartdata' => $cartdata,'prods' => $productsdata,'c_data' => $cartcount];
-		
+
 		return view($thapage,$sendover);
 	}
 
@@ -159,12 +170,52 @@ class SiteController extends Controller{
 		}
 	}
 
-	public function admin(){
-		if(AdminController::isadmin()){
-			$thapage = 'admin.home';
-			return view($thapage);
+	public function make_order(Request $req){
+		if(!auth()->check()){
+			return redirect('./login')->withErrors('log in to make an order');
 		}
 
-		return redirect('./');
+		$user = auth()->user();
+		$uid = $user->id;
+		// get all cart items for the current user
+		$mycarts = Cart::where('userid',$uid)->get();
+		$Oserial = cmutils::mekrandomstring();
+
+		$errors = [];
+		$toremove = [];
+
+		foreach ($mycarts as $item) {
+			// run a for each that gets user data and product data from the appropriate records
+			$myproduct = $item->myproduct;
+			$prodid = $myproduct->id;
+			
+			// check if product is in stock
+			if($myproduct->quantity >= $item->quantity){
+				// update the orders table with each item in the cart
+				$order = new Order();
+				$quan = $myproduct->quantity - $item->quantity;
+
+				// userid, productid, name, address, quantity, recipient_email, price, status, publish
+				$addme = [
+					"userid" => $uid,
+					"productid" => $myproduct->id,
+					"name" => $myproduct->name,
+					"address" => $user->address,
+					"quantity" => $item->quantity,
+					"recipient_email" => $user->email,
+					"price" => $myproduct->price,
+					"orderserial" => $Oserial,
+				];
+
+				Order::create($addme);
+				Product::where('id',$prodid)->update(['quantity' => $quan]);
+			} else {
+				array_push($errors,["what" => "error adding '$prodname': product is less than your cart requirement"]);
+			}
+		}
+
+		Cart::where('userid',$uid)->delete();
+
+		return redirect('./mycart')->with('message',count($errors) > 0 ? 'Some items were ordered successfully' : 'order processed successfully')->withErrors($errors);
 	}
 }

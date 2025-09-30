@@ -105,16 +105,14 @@
                     <hr>
                     <div class="row">
                         <div class="col-md-12 text-right">
-                            <form class="w3-hide" action="./clearcart" method="post" data-role="clearcart">
-                                @csrf
-                                <input type="hidden" name="doit" value="yes">
-                            </form>
+                            <form class="w3-hide" action="./clearcart" method="post" data-role="clearcart">@csrf</form>
+                            <form class="w3-hide" action="./makeorder" method="post" data-role="makeorder">@csrf</form>
 
                             <button class="btn btn-custom btn-clear mr-2" data-submitme='[data-role="clearcart"]'>
                                 <i class="fa fa-trash"></i> Clear Cart
                             </button>
-                            <button class="btn btn-custom btn-checkout">
-                                <i class="fa fa-credit-card"></i> Checkout
+                            <button class="btn btn-custom btn-checkout"  data-submitme='[data-role="makeorder"]'>
+                                <i class="fa fa-check"></i> Create Order
                             </button>
                         </div>
                     </div>

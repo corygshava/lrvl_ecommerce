@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Order;
 use App\Models\Product;
+use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
@@ -25,6 +26,30 @@ class AdminController extends Controller
 		}
 
 		return $dec;
+	}
+
+	public function index(){
+		$prodcount = Product::where('publish',1)->count();
+
+		// $allorders = Order::distinct()->where('publish',1)->get(['oderserial'])->count();
+		$allorders = Order::where('publish',1)->get(['oderserial'])->count();
+		$pendingorders = Order::where('publish',1)->where('status','pending')->count();
+		$paidorders = Order::where('publish',1)->where('status','paid')->count();
+		$expiredorders = Order::where('publish',1)->where('status','expired')->count();
+
+		$orderdata = [
+			"all" => $allorders,
+			"pending" => $pendingorders,
+			"paid" => $paidorders,
+			"expired" => $expiredorders,
+		];
+
+		$passeddata = [
+			"productscount" => $prodcount,
+			"orders" => $orderdata,
+		];
+
+		return view('admin.home',$passeddata);
 	}
 
 	public function product() {
@@ -159,5 +184,26 @@ class AdminController extends Controller
 
 			return redirect()->back()->with('message','Item deleted successfully');
 		}
+	}
+
+	public function list_orders() {
+		if(!self::isadmin()){
+			$view = str_shuffle('getfucked');
+			return redirect($view);
+		}
+
+		$pageamt = 15;
+		$orders = Order::paginate($pageamt);
+		$prods = [];
+		$users = [];
+
+		foreach($orders as $ord){
+			array_push($prods,$ord->myproduct);
+			array_push($users,$ord->myuser);
+		}
+
+		$passeddata = ['data' => $orders,'amts' => $pageamt,'prods' => $prods,'users' => $users];
+
+		return view('admin.list_orders', $passeddata);
 	}
 }

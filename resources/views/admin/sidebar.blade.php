@@ -67,17 +67,31 @@
 			</a>
 		</li>
 		<li class="nav-item menu-items">
-			<a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+			<a class="nav-link" data-bs-toggle="collapse" href="#ui-basic0" aria-expanded="false" aria-controls="ui-basic">
 				<span class="menu-icon">
 					<i class="mdi mdi-warehouse"></i>
 				</span>
 				<span class="menu-title">products</span>
 				<i class="menu-arrow"></i>
 			</a>
-			<div class="collapse" id="ui-basic">
+			<div class="collapse" id="ui-basic0">
 				<ul class="nav flex-column sub-menu">
 					<li class="nav-item"> <a class="nav-link" href="{{url('admin_new_product')}}">add new product</a></li>
 					<li class="nav-item"> <a class="nav-link" href="{{url('admin_list_products')}}">view products</a></li>
+				</ul>
+			</div>
+		</li>
+		<li class="nav-item menu-items">
+			<a class="nav-link" data-bs-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic">
+				<span class="menu-icon">
+					<i class="mdi mdi-shopping"></i>
+				</span>
+				<span class="menu-title">Orders</span>
+				<i class="menu-arrow"></i>
+			</a>
+			<div class="collapse" id="ui-basic1">
+				<ul class="nav flex-column sub-menu">
+					<li class="nav-item"><a class="nav-link" href="{{url('admin_list_orders')}}">view orders</a></li>
 				</ul>
 			</div>
 		</li>
